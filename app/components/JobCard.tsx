@@ -2,14 +2,14 @@
 
 import Link from "next/link"
 import { IJob } from "@/types"
-import { useJobs } from "@/context/JobContext"
+import { useJobContext } from "@/context/JobContext"
 
 interface Props {
   job: IJob
 }
 
 export default function JobCard({ job }: Props) {
-  const { saveJob, removeJob, isSaved } = useJobs()
+  const { toggleSaveJob, isSaved } = useJobContext()
   const saved = isSaved(job.id)
 
   return (
@@ -33,12 +33,11 @@ export default function JobCard({ job }: Props) {
       </Link>
 
       <button
-        onClick={() => saved ? removeJob(job.id) : saveJob(job)}
-        className={`mt-2 px-4 py-2 rounded-lg text-sm transition ${
-          saved
+        onClick={() => toggleSaveJob(job)}
+        className={`mt-2 px-4 py-2 rounded-lg text-sm transition ${saved
             ? "bg-red-500 text-white hover:bg-red-600"
             : "bg-green-500 text-white hover:bg-green-600"
-        }`}
+          }`}
       >
         {saved ? "Remove" : "Save Job"}
       </button>

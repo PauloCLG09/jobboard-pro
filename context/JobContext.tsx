@@ -5,8 +5,7 @@ import { IJob } from "@/types"
 
 interface JobContextType {
   savedJobs: IJob[]
-  saveJob: (job: IJob) => void
-  removeJob: (id: string) => void
+  toggleSaveJob: (job: IJob) => void
   isSaved: (id: string) => boolean
 }
 
@@ -15,7 +14,7 @@ const JobContext = createContext<JobContextType | undefined>(undefined)
 export function JobProvider({ children }: { children: React.ReactNode }) {
   const [savedJobs, setSavedJobs] = useState<IJob[]>([])
 
-  // Cargar desde LocalStorage al iniciar
+  // 🔥 1️⃣ Leer desde localStorage cuando carga la app
   useEffect(() => {
     const stored = localStorage.getItem("savedJobs")
     if (stored) {
@@ -23,19 +22,21 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Guardar en LocalStorage cuando cambie
+  // 🔥 2️⃣ Guardar en localStorage cada vez que cambien
   useEffect(() => {
     localStorage.setItem("savedJobs", JSON.stringify(savedJobs))
   }, [savedJobs])
 
-  const saveJob = (job: IJob) => {
-    if (!savedJobs.find((j) => j.id === job.id)) {
-      setSavedJobs([...savedJobs, job])
-    }
-  }
+  const toggleSaveJob = (job: IJob) => {
+    setSavedJobs((prev) => {
+      const exists = prev.find((j) => j.id === job.id)
 
-  const removeJob = (id: string) => {
-    setSavedJobs(savedJobs.filter((job) => job.id !== id))
+      if (exists) {
+        return prev.filter((j) => j.id !== job.id)
+      } else {
+        return [...prev, job]
+      }
+    })
   }
 
   const isSaved = (id: string) => {
@@ -43,18 +44,16 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <JobContext.Provider
-      value={{ savedJobs, saveJob, removeJob, isSaved }}
-    >
+    <JobContext.Provider value={{ savedJobs, toggleSaveJob, isSaved }}>
       {children}
     </JobContext.Provider>
   )
 }
 
-export function useJobs() {
+export function useJobContext() {
   const context = useContext(JobContext)
   if (!context) {
-    throw new Error("useJobs must be used within JobProvider")
+    throw new Error("useJobContext must be used within JobProvider")
   }
   return context
 }

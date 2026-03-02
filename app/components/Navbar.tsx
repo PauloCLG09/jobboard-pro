@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useJobs } from "@/context/JobContext"
+import { useJobContext } from "@/context/JobContext"
 
 export default function Navbar() {
-  const { savedJobs } = useJobs()
+  const { savedJobs } = useJobContext()
 
   return (
     <nav className="bg-black text-white px-6 py-4 flex justify-between items-center">

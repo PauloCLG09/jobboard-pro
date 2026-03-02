@@ -1,10 +1,10 @@
 "use client"
 
-import { useJobs } from "@/context/JobContext";
+import { useJobContext } from "@/context/JobContext"
 import JobCard from "../components/JobCard"
 
 export default function SavedJobsPage() {
-  const { savedJobs } = useJobs()
+  const { savedJobs } = useJobContext()
 
   if (savedJobs.length === 0) {
     return (
