@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { IJob } from "@/types"
 import { useDebounce } from "./useDebounce"
 
@@ -32,10 +32,16 @@ export function useJobsFilter() {
   const categories = Array.from(
     new Set(jobList.map((job) => job.category))
   )
-
+  const [sort, setSort] = useState("")
   const debouncedSearch = useDebounce(search, 300)
 
-  const filteredJobs = jobList.filter((job) => {
+  const parseSalary = (salary: string) => {
+    const min = salary.split("-")[0].replace(/\$|\s/g, "")
+    return Number(min)
+  }
+
+  const filteredJobs = useMemo(() => {
+  let filtered = jobList.filter((job) => {
     const matchesSearch =
       job.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
       job.company.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
@@ -47,6 +53,32 @@ export function useJobsFilter() {
     return matchesSearch && matchesCategory
   })
 
+  if (sort === "title-asc") {
+    filtered = [...filtered].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    )
+  }
+
+  if (sort === "title-desc") {
+    filtered = [...filtered].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    )
+  }
+
+  if (sort === "salary-asc") {
+    filtered = [...filtered].sort(
+      (a, b) => parseSalary(a.salary) - parseSalary(b.salary)
+    )
+  }
+
+  if (sort === "salary-desc") {
+    filtered = [...filtered].sort(
+      (a, b) => parseSalary(b.salary) - parseSalary(a.salary)
+    )
+  }
+
+  return filtered
+}, [jobList, debouncedSearch, category, sort])
   return {
     loading,
     search,
@@ -55,5 +87,7 @@ export function useJobsFilter() {
     setCategory,
     filteredJobs,
     categories,
+    sort,
+    setSort,
   }
 }

@@ -16,7 +16,7 @@ export default function CategoryFilter({
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full p-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+        className="h-10 border border-gray-300 px-4 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black/20 transition-all"
       >
         <option value="">All Categories</option>
 
