@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar"
 import CategoryFilter from "./components/CategoryFilter"
 import { useJobsFilter } from "@/hooks/useJobsFilter"
 import SkeletonCard from "./components/SkeletonCard"
+import { motion } from "framer-motion"
 
 export default function Home() {
   const {
@@ -20,16 +21,29 @@ export default function Home() {
   } = useJobsFilter()
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-gray-900 mb-4">
-          Find Your <span className="text-black">Dream Job</span>
-        </h1>
-        <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-          Discover top remote and on-site opportunities from leading companies around the world.
-        </p>
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center"
+        >
+          <h1 className="text-5xl font-bold tracking-tight text-white mb-4">
+            Find Your <span className="text-indigo-400">Dream Job</span>
+          </h1>
+
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Discover remote and on-site opportunities from top companies around the world.
+          </p>
+        </motion.div>
       </div>
-      <div className="flex flex-wrap gap-4 mb-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="flex flex-wrap gap-4 mb-10 justify-center"
+      >
         <SearchBar search={search} setSearch={setSearch} />
         <CategoryFilter
           category={category}
@@ -47,7 +61,7 @@ export default function Home() {
           <option value="salary-asc">Salary Low-High</option>
           <option value="salary-desc">Salary High-Low</option>
         </select>
-      </div>
+      </motion.div>
 
       {loading && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -64,11 +78,22 @@ export default function Home() {
 
 
       {!loading && filteredJobs.length > 0 && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          layout
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {filteredJobs.map((job) => (
-            <JobCard key={job.id} job={job} />
+            <motion.div
+              key={job.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              whileHover={{ scale: 1.03 }}
+            >
+              <JobCard job={job} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       )}
 

@@ -3,6 +3,7 @@
 import { useJobContext } from "@/context/JobContext"
 import JobCard from "../components/JobCard"
 
+
 export default function SavedJobsPage() {
   const { savedJobs } = useJobContext()
 

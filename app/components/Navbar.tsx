@@ -7,8 +7,8 @@ export default function Navbar() {
   const { savedJobs } = useJobContext()
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold tracking-tight">
+    <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200 px-8 py-4 flex justify-between items-center">
+      <Link href="/" className="text-xl font-semibold tracking-tight">
         JobBoard<span className="text-gray-400">Pro</span>
       </Link>
 
@@ -22,7 +22,7 @@ export default function Navbar() {
 
         <Link
           href="/saved"
-          className="relative bg-green-500 px-3 py-1 rounded-lg hover:bg-green-600 transition flex items-center"
+          className="text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
         >
           Saved Jobs
           {savedJobs.length > 0 && (
