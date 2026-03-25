@@ -14,7 +14,7 @@ const JobContext = createContext<JobContextType | undefined>(undefined)
 export function JobProvider({ children }: { children: React.ReactNode }) {
   const [savedJobs, setSavedJobs] = useState<IJob[]>([])
 
-  // 🔥 1️⃣ Leer desde localStorage cuando carga la app
+  // 🔥 Cargar desde localStorage
   useEffect(() => {
     const stored = localStorage.getItem("savedJobs")
     if (stored) {
@@ -22,7 +22,7 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // 🔥 2️⃣ Guardar en localStorage cada vez que cambien
+  // 🔥 Guardar en localStorage
   useEffect(() => {
     localStorage.setItem("savedJobs", JSON.stringify(savedJobs))
   }, [savedJobs])
