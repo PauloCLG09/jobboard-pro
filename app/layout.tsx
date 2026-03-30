@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import ClientLayout from "./components/ClientLayout"
 import { JobProvider } from "@/context/JobContext"
+import { ToastProvider } from "@/context/ToastContext"
 
 export const metadata: Metadata = {
   title: "Job Board",
@@ -12,10 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="bg-gradient-to-b from-white to-gray-100 min-h-screen"> 
-         <JobProvider>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
+        <JobProvider>
+          <ToastProvider> 
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+          </ToastProvider>
         </JobProvider>
       </body>
     </html>
