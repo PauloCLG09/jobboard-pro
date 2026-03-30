@@ -28,10 +28,10 @@ export default function JobCard({ job }: Props) {
 
   return (
     <motion.div
-      whileHover={{ y: -6, scale: 1.02 }}
+      whileHover={{ y: -8, scale: 1.03 }}
       className="group bg-white/5 backdrop-blur-xl border border-white/10 hover:border-indigo-400/40 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300"
     >
-   
+
       <div className="flex items-start justify-between mb-4">
         <div>
           <h2 className="text-lg font-semibold text-white group-hover:text-indigo-400 transition">
@@ -48,7 +48,7 @@ export default function JobCard({ job }: Props) {
         </div>
       </div>
 
-   
+
       <span className="inline-block text-xs bg-white/10 text-gray-300 px-3 py-1 rounded-full mb-4">
         {job.category}
       </span>
@@ -57,7 +57,7 @@ export default function JobCard({ job }: Props) {
         {job.salary}
       </p>
 
-   
+
       <div className="flex items-center justify-between mt-4">
         <Link
           href={`/jobs/${job.id}`}
@@ -67,12 +67,12 @@ export default function JobCard({ job }: Props) {
         </Link>
 
         <button
-          onClick={handleSave} 
-          className={`text-xs px-3 py-2 rounded-lg font-medium transition-all duration-200 ${
-            saved
+        
+          onClick={handleSave}
+          className={`cursor-pointer active:scale-95 text-xs px-3 py-2 rounded-lg font-medium transition-all duration-200 ${saved
               ? "bg-red-500 text-white hover:bg-red-600"
               : "bg-white/10 text-gray-300 hover:bg-white/20"
-          }`}
+            }`}
         >
           {saved ? "Saved" : "Save"}
         </button>
