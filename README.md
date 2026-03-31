@@ -1,14 +1,17 @@
-# 💼 JobBoard Pro
+# 💼 JobBoard Pro — Modern Job Finder UI
 
 Aplicación web moderna de bolsa de trabajo construida con **Next.js, TailwindCSS y React Context API**.
 Permite explorar ofertas laborales, guardar favoritas y disfrutar de una experiencia de usuario fluida con animaciones.
 
 ---
 
+## 🎯 Objetivo del proyecto
+
+Este proyecto fue desarrollado como práctica para simular una aplicación real de bolsa de trabajo enfocada en experiencia de usuario (UX) y manejo de estado en frontend.
+
 ## 🚀 Demo en vivo
 
-👉 https://TU-LINK-VERCEL.vercel.app
-
+jobboard-pro-omega.vercel.app
 ---
 
 ## ✨ Funcionalidades
@@ -34,11 +37,6 @@ Permite explorar ofertas laborales, guardar favoritas y disfrutar de una experie
 
 ---
 
-## 📸 Capturas
-
-(Añadir imágenes del proyecto aquí)
-
----
 
 ## ⚙️ Instalación
 
